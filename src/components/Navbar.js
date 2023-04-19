@@ -3,9 +3,10 @@ import { useSelector } from "react-redux"
 
 
 const Navbar = () => {
-    //console.log("first", useSelector((store) => {console.log("store", store)}))
+
     const{ amount } = useSelector((store ) => store.cart)
-    //console.log('amount :', amount)
+    const { main, isLoading } = useSelector((store) => store.weather)
+    
     return (
         <nav>
             <div className="nav-center">
@@ -17,8 +18,13 @@ const Navbar = () => {
                         <p className="total-amount">{amount}</p>
                     </div>
                 </div>
-
+                
             </div>
+                        {isLoading.isLoading ? (
+                <div className="nav-temp">Loading...</div>
+                ) : (
+                <div className="nav-temp">{(300 - main.temp).toFixed(2)}°</div>
+                )}
         </nav>
         
     )

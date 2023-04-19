@@ -119,6 +119,7 @@ Navbar
   margin-top: 5rem;
 }
 nav {
+  position: relative;
   background: var(--clr-primary);
   padding: 1.25rem 2rem;
 }
@@ -142,6 +143,13 @@ nav h3 {
 nav svg {
   width: 40px;
   color: var(--clr-white);
+}
+.nav-temp{
+  position: absolute;
+  top: 5px;
+  padding: .2rem;
+  border-radius: 50%;
+  background-color: white;
 }
 .amount-container {
   position: absolute;
