@@ -1,6 +1,9 @@
 import { Routes, Route } from "react-router-dom"
 
 import Navbar from "./components/Navbar"
+import { Home } from "./pages/Home"
+import {SignUpModal} from './components/signUpModal'
+
 import CartContainer from "./components/cartContainer"
 import { useDispatch, useSelector } from "react-redux"
 import { totalPrice, getCartItems } from "./features/cart/cartSlice"
@@ -34,11 +37,17 @@ function App() {
     )
   }
   return (
-    <main>
+    <>
+      <SignUpModal />
       <Navbar />
-      <CartContainer />
-      {isOpen && <Modal />}
-  </main>
+      <Routes >
+        <Route path="/" element={<Home />} />
+
+
+        {/* <CartContainer />
+        {isOpen && <Modal />} */}
+      </Routes>
+  </>
   )
 }
 export default App;
