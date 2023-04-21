@@ -1,15 +1,14 @@
 import React, { useState } from "react"
 import { useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { toggleSignUpModal } from "../features/signUpModal/SignUpModalSlice"
-import {createUserWithEmailAndPassword} from "firebase/auth"
+import { toggleSignInModal } from "../features/signInModal/signInModalSlice"
+import {signInWithEmailAndPassword,} from "firebase/auth"
 import { auth } from "../firebase-config"
 
-export  const SignUpModal = () => {
+export  const SignInModal = () => {
 
-    const { signUpIsOpen } = useSelector((store) => store.signUpModal)
+    const { signInIsOpen } = useSelector((store) => store.signInModal)
     const [validation, setValidation] = useState("")
-
     const formRef = useRef()
     const inputs = useRef([])
     const addInputs = el => {
@@ -24,52 +23,38 @@ export  const SignUpModal = () => {
     const modalRef = useRef(null)
     const  handleClickOutsideModal = (e) => {
         if(e.target === modalRef.current){
-            dispatch(toggleSignUpModal())
+           dispatch(toggleSignInModal())
         }
     }
-
-    const signUp = (email, pwd) => createUserWithEmailAndPassword(auth, email, pwd) 
+    // identification connexion 
+    const signIn = (email, pwd) => signInWithEmailAndPassword(auth, email, pwd) 
     //console.log("inputs.current[0].value :", inputs.current[0].value)
-    const handleSignUp = (e) => {
+    const handleSignIn = (e) => {
         e.preventDefault()
-        //gestion des erreurs coté front
-        if(inputs.current[1].value.length < 5 || inputs.current[2].value.length < 5){
-            setValidation("six characters min")
-            return
-        }
-        if(inputs.current[1].value !== inputs.current[2].value ){
-            setValidation("Password does not match")
-            return
-        }
+        
             // inscription selon email (inputs.current[0].value) et pwd (...)
-            signUp( 
+            signIn( 
                 inputs.current[0].value,
                 inputs.current[1].value
                 )
             .then(() => {
                 // vider formulaire et setValidation ...
-                formRef.current.reset()
+                // formRef.current.reset()
                 setValidation("")
                 alert("Opération réussie")
             })
             .catch((error) => {
                 console.error("erreur :", error)
-                if(error.code === "auth/invalid-email"){
-                    setValidation("invalid email")
-                }
-                else if(error.code === "auth/email-already-in-use"){
-                    setValidation("email already used")
-                }
+                setValidation("woopsy, email and / or pwd incorrect") 
             })
     }
 
-   
-    if(signUpIsOpen){
+    if(signInIsOpen){
     return(
         <div className="modalContainer" onclick={handleClickOutsideModal}>
             <div className="signUpModal" ref={modalRef}>
-                <h3>Sign Up</h3>
-                <form onSubmit={handleSignUp} ref={formRef}>
+                <h3>Sign In</h3>
+                <form onSubmit={handleSignIn} ref={formRef}>
                     <div>
                         <label 
                             htmlFor='signUpEmail' 
@@ -101,20 +86,6 @@ export  const SignUpModal = () => {
                         />
                     </div>
 
-                    <div>
-                        <label htmlFor='repeatPwd' 
-                            className='form-label'>
-                            Repeat Your Password
-                        </label>
-                        <input                
-                            ref={addInputs}
-                            required
-                            name='repeatPwd'
-                            type='password'
-                            className='form-controll'
-                            id='repeatPwd'
-                        />
-                    </div>
                     <button type="submit" className="signUpModal-btn btn">Submit</button>
                     <p>{validation} </p>
                 </form>

@@ -1,6 +1,7 @@
 import {CartIcon } from "../icons"
 import { useSelector } from "react-redux"
 import { toggleSignUpModal } from "../features/signUpModal/SignUpModalSlice"
+import { toggleSignInModal } from "../features/signInModal/signInModalSlice"
 import { useDispatch } from "react-redux"
 
 
@@ -8,26 +9,47 @@ const Navbar = () => {
     const dispatch = useDispatch()
     const{ amount } = useSelector((store ) => store.cart)
     const { main, isLoading } = useSelector((store) => store.weather)
+    const { signInIsOpen } = useSelector((store) => store.signInModal)
+    const { signUpIsOpen } = useSelector((store) => store.signUpModal) 
     
     return (
         <nav>
             <div className="nav-center">
                 <h3>redux toolkit</h3>
-                <div className="nav-container">
-                    
-                    
+                <div className="nav-container">                    
                     <div className="amount-container">
                         <CartIcon />
                         <p className="total-amount">{amount}</p>
                     </div>
                     <div className="nav-btns">
-                        <button 
+                        {/* si signInModal est déjà ouvert */}
+                        {signInIsOpen ? (
+                            <button 
+                            className="nav-btn btn"  
+                        >
+                            SignUp
+                        </button>
+                        ) : (
+                            <button 
                             className="nav-btn btn" 
                             onClick={() => {dispatch(toggleSignUpModal())}}
                         >
                             SignUp
                         </button>
-                        <button className="nav-btn btn">SignIn</button>
+                        )}
+                         {/* si signUpModal est déjà ouvert */}
+                        {signUpIsOpen ? (<button 
+                            className="nav-btn btn"
+                        >
+                            SignIn
+                        </button>) : (
+                            <button 
+                            className="nav-btn btn"
+                            onClick={() => {dispatch(toggleSignInModal())}}
+                        >
+                            SignIn
+                        </button>
+                        )}
                     </div>
                 </div>
                 
