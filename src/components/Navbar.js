@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import { toggleSignUpModal } from "../features/signUpModal/SignUpModalSlice"
 import { toggleSignInModal } from "../features/signInModal/signInModalSlice"
 import { useDispatch } from "react-redux"
-
+import { NavLink } from "react-router-dom"
 
 const Navbar = () => {
     const dispatch = useDispatch()
@@ -15,8 +15,15 @@ const Navbar = () => {
     return (
         <nav>
             <div className="nav-center">
-                <h3>redux toolkit</h3>
-                <div className="nav-container">                    
+                <NavLink to="/" >
+                    <h3>redux toolkit</h3>
+                </NavLink>
+                <div className="nav-link"> 
+                    <NavLink to="about">
+                        <button className="nav-btn btn">About</button>
+                    </NavLink>
+                </div> 
+                <div className="nav-container">                                      
                     <div className="amount-container">
                         <CartIcon />
                         <p className="total-amount">{amount}</p>

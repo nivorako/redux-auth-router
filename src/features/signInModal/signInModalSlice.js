@@ -1,7 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
+import { auth } from "../../firebase-config"
+
 
 const initialState = {
-    signInIsOpen: false
+    signInIsOpen: false, 
 }
 
 export const signInModalSlice = createSlice({
@@ -10,8 +12,9 @@ export const signInModalSlice = createSlice({
     reducers:{
         toggleSignInModal : (state) => {
             state.signInIsOpen = !state.signInIsOpen
-        }
-    }
+        },
+    },
+    
 })
 
 export const {toggleSignInModal} = signInModalSlice.actions

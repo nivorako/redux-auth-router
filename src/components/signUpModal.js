@@ -66,7 +66,7 @@ export  const SignUpModal = () => {
    
     if(signUpIsOpen){
     return(
-        <div className="modalContainer" onclick={handleClickOutsideModal}>
+        <div className="modalContainer" onClick={handleClickOutsideModal}>
             <div className="signUpModal" ref={modalRef}>
                 <h3>Sign Up</h3>
                 <form onSubmit={handleSignUp} ref={formRef}>

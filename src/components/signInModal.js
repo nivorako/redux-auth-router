@@ -1,8 +1,10 @@
-import React, { useState } from "react"
-import { useRef } from "react"
+import React, { useEffect, useState, useRef } from "react"
+
 import { useSelector, useDispatch } from "react-redux"
+
 import { toggleSignInModal } from "../features/signInModal/signInModalSlice"
-import {signInWithEmailAndPassword,} from "firebase/auth"
+
+import {signInWithEmailAndPassword} from "firebase/auth"
 import { auth } from "../firebase-config"
 
 export  const SignInModal = () => {
@@ -26,9 +28,11 @@ export  const SignInModal = () => {
            dispatch(toggleSignInModal())
         }
     }
-    // identification connexion 
+    // fonction authentification 
     const signIn = (email, pwd) => signInWithEmailAndPassword(auth, email, pwd) 
     //console.log("inputs.current[0].value :", inputs.current[0].value)
+
+    // opération authentification
     const handleSignIn = (e) => {
         e.preventDefault()
         
@@ -48,10 +52,10 @@ export  const SignInModal = () => {
                 setValidation("woopsy, email and / or pwd incorrect") 
             })
     }
-
+    // si la modal signIn est ouvert :
     if(signInIsOpen){
     return(
-        <div className="modalContainer" onclick={handleClickOutsideModal}>
+        <div className="modalContainer" onClick={handleClickOutsideModal}>
             <div className="signUpModal" ref={modalRef}>
                 <h3>Sign In</h3>
                 <form onSubmit={handleSignIn} ref={formRef}>
