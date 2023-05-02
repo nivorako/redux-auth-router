@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 import { toggleSignInModal } from "../features/signInModal/signInModalSlice"
 
-import {signInWithEmailAndPassword} from "firebase/auth"
+import {signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase-config"
 
 export  const SignInModal = () => {
@@ -12,85 +12,83 @@ export  const SignInModal = () => {
     const { signInIsOpen } = useSelector((store) => store.signInModal)
     const [validation, setValidation] = useState("")
     const formRef = useRef()
-    const inputs = useRef([])
-    const addInputs = el => {
-        if(el && !inputs.current.includes(el)) {
-            inputs.current.push(el)
-            // console.log("el :", el)
-            // console.log("inputs.current :", inputs.current)
-        }  
-    }
-    // sensé fermer la modal si on clck en dehors : // TODO
+
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
+
+    //fermer la modal si on clck en dehors 
     const dispatch = useDispatch()
     const modalRef = useRef(null)
+    
     const  handleClickOutsideModal = (e) => {
         if(e.target === modalRef.current){
            dispatch(toggleSignInModal())
         }
     }
     // fonction authentification 
-    const signIn = (email, pwd) => signInWithEmailAndPassword(auth, email, pwd) 
-    //console.log("inputs.current[0].value :", inputs.current[0].value)
-
+    // const signIn = (email, pwd) => signInWithEmailAndPassword(auth, email, pwd) 
+    const signIn = (email, pwd) => {
+        console.log(`signIn called with email: ${email} and password: ${pwd}`);
+        return signInWithEmailAndPassword(auth, email, pwd)
+    }
     // opération authentification
     const handleSignIn = (e) => {
         e.preventDefault()
         
             // inscription selon email (inputs.current[0].value) et pwd (...)
             signIn( 
-                inputs.current[0].value,
-                inputs.current[1].value
+                emailInputRef.current.value,
+                passwordInputRef.current.value
                 )
             .then(() => {
-                // vider formulaire et setValidation ...
-                // formRef.current.reset()
                 setValidation("")
-                alert("Opération réussie")
+                dispatch(toggleSignInModal())
             })
             .catch((error) => {
                 console.error("erreur :", error)
                 setValidation("woopsy, email and / or pwd incorrect") 
+                formRef.current.reset()
             })
     }
     // si la modal signIn est ouvert :
     if(signInIsOpen){
     return(
-        <div className="modalContainer" onClick={handleClickOutsideModal}>
-            <div className="signUpModal" ref={modalRef}>
+        <div className="modalContainer" onClick={handleClickOutsideModal} ref={modalRef}>
+            <div className="signInModal" >
                 <h3>Sign In</h3>
                 <form onSubmit={handleSignIn} ref={formRef}>
-                    <div>
+                    <div className="signInModal-form">
                         <label 
-                            htmlFor='signUpEmail' 
+                            htmlFor='signInEmail' 
                             className='form-label'
                         >
                             Email adress
                         </label>
                         <input 
-                            ref={addInputs}
+                            ref={emailInputRef}
                             required
                             name='email'
                             type='email'
                             className='form-controll'
-                            id='signUpEmail'
+                            id='signInEmail'
                         />
                     </div>
-                    <div>
-                        <label htmlFor='signUpPwd' 
+                    <div className="signInModal-form">
+                        <label htmlFor='signInPwd' 
                             className='form-label'>
                             Password
                         </label>
                         <input 
-                            ref={addInputs}
+                            ref={passwordInputRef}
                             required
                             name='pwd'
                             type='password'
                             className='form-controll'
-                            id='signUpPwd'
+                            id='signInPwd'
                         />
                     </div>
 
-                    <button type="submit" className="signUpModal-btn btn">Submit</button>
+                    <button type="submit" className="signInModal-btn btn">Submit</button>
                     <p>{validation} </p>
                 </form>
             </div>

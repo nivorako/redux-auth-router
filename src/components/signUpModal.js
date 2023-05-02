@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import { useRef } from "react"
+import React, { useState, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleSignUpModal } from "../features/signUpModal/SignUpModalSlice"
 import {createUserWithEmailAndPassword} from "firebase/auth"
@@ -19,7 +18,7 @@ export  const SignUpModal = () => {
             // console.log("inputs.current :", inputs.current)
         }  
     }
-    // sensé fermer la modal si on clck en dehors : // TODO
+    // fermer la modal si on clck en dehors 
     const dispatch = useDispatch()
     const modalRef = useRef(null)
     const  handleClickOutsideModal = (e) => {
@@ -28,7 +27,9 @@ export  const SignUpModal = () => {
         }
     }
 
-    const signUp = (email, pwd) => createUserWithEmailAndPassword(auth, email, pwd) 
+    const signUp = async (email, pwd) =>  {
+        createUserWithEmailAndPassword(auth, email, pwd)
+    }
     //console.log("inputs.current[0].value :", inputs.current[0].value)
     const handleSignUp = (e) => {
         e.preventDefault()
@@ -49,8 +50,8 @@ export  const SignUpModal = () => {
             .then(() => {
                 // vider formulaire et setValidation ...
                 formRef.current.reset()
-                setValidation("")
-                alert("Opération réussie")
+                setValidation("")               
+                dispatch(toggleSignUpModal())
             })
             .catch((error) => {
                 console.error("erreur :", error)
@@ -66,11 +67,11 @@ export  const SignUpModal = () => {
    
     if(signUpIsOpen){
     return(
-        <div className="modalContainer" onClick={handleClickOutsideModal}>
-            <div className="signUpModal" ref={modalRef}>
+        <div className="modalContainer" onClick={handleClickOutsideModal} ref={modalRef}>
+            <div className="signUpModal" >
                 <h3>Sign Up</h3>
                 <form onSubmit={handleSignUp} ref={formRef}>
-                    <div>
+                    <div className="signUpModal-form">
                         <label 
                             htmlFor='signUpEmail' 
                             className='form-label'
@@ -86,7 +87,7 @@ export  const SignUpModal = () => {
                             id='signUpEmail'
                         />
                     </div>
-                    <div>
+                    <div className="signUpModal-form">
                         <label htmlFor='signUpPwd' 
                             className='form-label'>
                             Password
@@ -101,7 +102,7 @@ export  const SignUpModal = () => {
                         />
                     </div>
 
-                    <div>
+                    <div className="signUpModal-form">
                         <label htmlFor='repeatPwd' 
                             className='form-label'>
                             Repeat Your Password
