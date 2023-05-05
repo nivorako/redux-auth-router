@@ -28,7 +28,6 @@ export  const SignInModal = () => {
     // fonction authentification 
     // const signIn = (email, pwd) => signInWithEmailAndPassword(auth, email, pwd) 
     const signIn = (email, pwd) => {
-        console.log(`signIn called with email: ${email} and password: ${pwd}`);
         return signInWithEmailAndPassword(auth, email, pwd)
     }
     // opération authentification

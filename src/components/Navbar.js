@@ -43,14 +43,6 @@ const Navbar = () => {
                     <input type="text" placeholder="rechercher"/>
                 </div>
                 <div className="nav-nav">
-                    <div className="nav-link"> 
-                        {/* <NavLink to="about">
-                            <button className="nav-btn btn">About</button>
-                        </NavLink> */}
-                        <NavLink to="/private">
-                            <button className="nav-btn btn">Déposer une annonce</button>
-                        </NavLink>
-                    </div> 
                     <div className="nav-container">                                                             
                         <div className="nav-btns">
                             {/* si on n'est pas connecté  */}
@@ -98,6 +90,7 @@ const Navbar = () => {
                             <CartIcon />
                             <p className="total-amount">{amount}</p>
                         </div>
+                        
                     </div>
                 </div>
             </div>

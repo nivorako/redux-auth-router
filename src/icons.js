@@ -1,3 +1,10 @@
+import { useState } from "react"
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { db, auth } from "./firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+
+
 export const CartIcon = () => {
   return (
     <svg
@@ -47,11 +54,47 @@ export const ChevronUp = () => {
   );
 };
 
-export const Testing = () => {
+
+export const Heart = () => {
+  const [fill, setFill] = useState('none')
+  const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser)
+        })
+        return unsubscribe
+    }, []);
+
+  const handleClick = async (item) => {
+      if(fill === "red"){
+          setFill("none")
+      }else{
+          setFill("red")
+      }
+      
+      const userDoc = doc(db, 'users', user.uid);
+      await updateDoc(userDoc, {
+        list: arrayUnion(item)
+    });
+  }
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 7.5l.415-.207a.75.75 0 011.085.67V10.5m0 0h6m-6 0h-1.5m1.5 0v5.438c0 .354.161.697.473.865a3.751 3.751 0 005.452-2.553c.083-.409-.263-.75-.68-.75h-.745M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
+      <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          fill={fill}
+          viewBox="0 0 24 24" 
+          strokeWidth={0.5} 
+          stroke="currentColor" 
+          className="heart"
+          onClick={() => handleClick()}
+      >
+          <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" 
+          />
+      </svg>
   )
 }
+
 

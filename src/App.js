@@ -1,7 +1,7 @@
     import { Routes, Route } from "react-router-dom"
     import { useEffect, useState } from "react"
 
-    import Navbar from "./components/Navbar"
+    import Header from "./components/Header"
     import { Home } from "./pages/Home"
     import {SignUpModal} from './components/signUpModal'
     import {SignInModal} from "./components/signInModal"
@@ -17,6 +17,8 @@
     import { setCurrentUser, setLoading } from "./features/auth/authSlice"
 
     import { auth } from "./firebase-config"
+
+
     // import {collection, doc, setDoc} from "firebase/firestore"
     // import { db } from "./firebase-config"
 
@@ -65,10 +67,14 @@
         )
     }
     return (
-        <>
-        <Navbar />
+    <>
+        
         <SignUpModal />
         <SignInModal />
+        <>
+            <Header />
+        </>
+        
         <Routes >
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

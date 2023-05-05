@@ -65,7 +65,7 @@ h4 {
   font-size: 0.875rem;
 }
 p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0rem;
 }
 @media screen and (min-width: 800px) {
   h1 {
@@ -116,6 +116,16 @@ p {
 Navbar
 ===============
 */
+.navBar{
+  position: sticky;
+  top: 0;
+}
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+}
 .loading {
   text-align: center;
   margin-top: 5rem;
@@ -127,7 +137,7 @@ nav {
   z-index: 10;
 }
 .nav-nav{
-width: 50%;
+
 display: flex;
 justify-content: space-between;
 align-items: center;
@@ -167,6 +177,12 @@ nav svg {
   align-items: center;
 }
 
+.amount{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .amount-container {
   /* position: absolute;
   top: .5rem;
@@ -201,6 +217,24 @@ nav svg {
   margin-bottom: 0;
   font-size: 1.25rem;
 }
+
+/*
+=======================================
+userNavBar
+==========================================
+*/
+.userNavBar{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-around;
+}
+.userNavBar-link{
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
 /*
 =============== 
 Cart
@@ -383,14 +417,7 @@ z-index: 2;
 .signUpModal-btn{
   border-radius: 10px;
 }
-form{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: space-between;
-  padding: 1rem;
-}
+
 .signInModal-form,
 .signUpModal-form{
   display: flex;
@@ -428,6 +455,19 @@ Home
   transform: scale(1.1);
   box-shadow: rgb(139, 139, 252) 0.2em 0.3em 0.2em 0.2em;
 }
+.heart{
+  width: 1rem;
+  height: 1rem;
+  transition: .5s;
+}
+.heart:hover{
+  transform: scale(1.5);
+}
+.home-infoDetails{
+  display: flex;
+  justify-content: space-between;
+  align-items: last baseline;
+}
 /*
 =======================================
 create
@@ -436,12 +476,27 @@ create
 .create{
   width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.createForm{
+  padding: 2rem 5rem;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.create-title{
+  align-self: flex-start;
+}
+.create-form{
+  margin-top: 100px;
+  height: 250px;
+  width: 50%;
+}
+.createForm{
+  margin-top: 100px;
+ 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: left;
 }
+
+

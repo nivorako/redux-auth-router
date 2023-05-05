@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux"
 import { db } from "../firebase-config";
+import { Heart } from "../icons"; 
 
 export function Home(){
     const { currentUser } = useSelector((store) => store.auth)
@@ -15,21 +16,23 @@ export function Home(){
         })
         return unsuscribe
     }, [])
-   //console.log('users :', users[0].firstName)
+   console.log('users :', users)
     return(
         <div className="home">
-            {currentUser ? (
-                    <h1 className="home-title"> bonjour {currentUser.email.split("@")[0].split(".")[0]}</h1>            
-            ) : (
-                <h1 className="home-title">Bienvenu (e)</h1>
-            )}
+            <h1 className="home-title">Bienvenu (e)</h1>
             <div className="home-infos">
                 {users.map((user, index) => {
                     return  (
                             <div className="home-info" key={index}>
-                                <p>Nom : <span>{user.firstName} </span></p>
-                                <p>prénom : <span>{user.lastName} </span></p>
-                                <p>localisation : <span>{user.location} </span></p>    
+                                <img src={user.photo} alt="voiture" />
+                                <div className="home-infoDetails">
+                                    <div>
+                                        <p>Nom : <span>{user.nom} </span></p>
+                                        <p>Catégorie : <span>{user.catégorie} </span></p>
+                                        <p>Date mise en circulation : <span>{user.date} </span></p>
+                                    </div> 
+                                    <Heart />
+                                </div>
                             </div>
                             )
                 })}
