@@ -118,19 +118,15 @@ Navbar
 */
 .navBar{
   position: sticky;
-  top: 0;
+  
 }
-.hidden{
-  display: none;
-}
-.show{
-  display: block;
-}
+
 .loading {
   text-align: center;
   margin-top: 5rem;
 }
 nav {
+  transition: all 1s easy;
   position: relative;
   background: var(--clr-primary);
   padding: 1.25rem 2rem;
@@ -224,6 +220,7 @@ userNavBar
 ==========================================
 */
 .userNavBar{
+  transition: all 1s easy;
   display: flex;
   align-items: baseline;
   justify-content: space-around;
