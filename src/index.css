@@ -118,7 +118,7 @@ Navbar
 */
 .navBar{
   position: sticky;
-  
+  z-index: 100;
 }
 
 .loading {
@@ -224,12 +224,21 @@ userNavBar
   display: flex;
   align-items: baseline;
   justify-content: space-around;
+  background-color: #fff;
 }
 .userNavBar-link{
   width: 80%;
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin: 1rem;
+}
+.navProfil-link{
+  color: #645cff;
+  font-weight: bold;
+}
+
+.navProfil-link:hover{
+  border-bottom: #645cff 2px solid
 }
 
 /*

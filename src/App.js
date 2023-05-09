@@ -8,6 +8,7 @@
     import  Private  from "./pages/private/Private"
     import Create from "./pages/private/create/Create"
     import { Update } from "./pages/private/update/Update"
+    import Profil from "./pages/private/profil/Profil"
     // import Modal from "./components/modal"
     // import CartContainer from "./components/cartContainer"
     import { About } from "./pages/About"
@@ -25,7 +26,6 @@
 
     function App() {
     const { base } = useSelector((store) => store.weather)
-    const { isOpen } = useSelector((store) => store.modal)
     const {cartItems, isLoading} = useSelector((store) => store.cart)
     const dispatch = useDispatch()
 
@@ -83,6 +83,7 @@
                 <Route path="Create" element={<Create />} />
                 {/* <Route path="" /> */}
                 <Route path="Update/:id" element={<Update />} />
+                <Route path="Profil/:id" element={<Profil />} />
             </Route>
         </Routes>
     </>

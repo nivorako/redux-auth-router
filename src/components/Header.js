@@ -10,18 +10,31 @@ function Header() {
     const handleScroll = () => {
         const currentScrollPos = window.scrollY
         // set state based on location info
-        setVisible(prevScrollPos > currentScrollPos )
+        setVisible(prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 10)
         // set state to new position scroll
         setPrevScrollPos(currentScrollPos)
     }
+
+    const debounce = (func, wait) => {
+      let timeout
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout)
+          func(...args)
+        }
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+      }
+    }
     
+    const debounceHandleScroll = debounce(handleScroll, 100)
 
     useEffect(() => {
-       window.addEventListener('scroll', handleScroll)
+       window.addEventListener('scroll', debounceHandleScroll)
        return (() => {
-            window.removeEventListener('scroll', handleScroll)
+            window.removeEventListener('scroll', debounceHandleScroll)
        })
-    }, [prevScrollPos, visible, handleScroll])
+    }, [prevScrollPos, visible, debounceHandleScroll])
 
   return (
     <div className='navBar' style={{top: visible ? "0" : "-150px"}}>
