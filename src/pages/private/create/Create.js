@@ -12,7 +12,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 const Create = () => {
     const navigate = useNavigate()
 
-    const  { register, handleSubmit, watch, formState: {errors} } = useForm ()
+    const  { register, handleSubmit } = useForm ()
    
     const [user, setUser] = useState(null)
 
