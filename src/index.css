@@ -117,6 +117,7 @@ Navbar
 ===============
 */
 .navBar{
+  transition-duration: 1s;
   position: sticky;
   z-index: 100;
 }
@@ -220,7 +221,7 @@ userNavBar
 ==========================================
 */
 .userNavBar{
-  transition: all 1s easy;
+ 
   display: flex;
   align-items: baseline;
   justify-content: space-around;
@@ -530,6 +531,15 @@ profil
 .profil-form{
   width: 100%;
 }
+.profile-downloadImg{
+  width: 100%;
+  display: flex;
+}
+.profile-img{
+  width: 20%;
+  height: 150px;
+  margin-left: 2rem;
+}
 .profile-input{
   display: none;
 }
@@ -562,6 +572,11 @@ profil
   border-radius: 10px;
 }
 
+.profil-btn:hover{
+  cursor: pointer;
+}
+
+#email,
 #lastName,
 #firstName{
   width: 100%;

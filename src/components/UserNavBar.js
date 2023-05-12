@@ -6,7 +6,7 @@ import { UserIcon } from '../icons'
 
 function UserNavBar() {
     let { userId } = useParams();
-    console.log('userId :', userId)
+    //console.log('userId :', userId)
     const {currentUser} = useSelector((store) => (store.auth))
     if(currentUser) {
         return ( 
